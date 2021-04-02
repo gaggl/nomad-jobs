@@ -20,7 +20,10 @@ job "ingress" {
     service {
       name = "traefik"
       port = "traefik-ui"
-      tags = ["traefik.enable=true"]
+      tags = [
+        "traefik.enable=true",
+        "traefik.http.routers.traefik.rule=Host(`ingress.gaggl.vagrant`)"
+      ]
       check {
         type = "http"
         path = "/ping"

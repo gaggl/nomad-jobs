@@ -20,7 +20,7 @@ job "dashboard" {
     }
 
     service {
-      name = "alertmanager"
+      name = "alerts"
       port = "alertmanager_ui"
       tags = ["traefik.enable=true"]
       check {
@@ -194,7 +194,10 @@ EOH
 
     service {
       name = "mailhog"
-      tags = ["traefik.enable=true"]
+      tags = [
+        "traefik.enable=true",
+        "traefik.http.routers.mailhog.rule=Host(`mail.gaggl.vagrant`)"
+      ]
       port = "http"
       check {
         type     = "tcp"

@@ -15,7 +15,10 @@ job "metrics" {
     service {
       name = "prometheus"
       port = "prometheus_ui"
-      tags = ["traefik.enable=true"]
+      tags = [
+        "traefik.enable=true",
+        "traefik.http.routers.prometheus.rule=Host(`metrics.gaggl.vagrant`)"
+      ]
       check {
         type     = "http"
         path     = "/-/healthy"
