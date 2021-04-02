@@ -23,7 +23,10 @@ job "logs" {
     service {
       name = "loki"
       port = "loki"
-
+      tags = [
+        "traefik.enable=true",
+        "traefik.http.routers.loki.rule=Host(`logs.gaggl.vagrant`)"
+      ]
       check {
         type     = "http"
         path     = "/ready"
@@ -58,7 +61,7 @@ job "logs" {
       driver = "docker"
 
       config {
-        image = "grafana/loki:2.1.0"
+        image = "grafana/loki:2.2.0"
 
         args = [
           "--config.file=/etc/loki/config/loki.yml",

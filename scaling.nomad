@@ -43,7 +43,7 @@ job "scaling" {
       driver = "docker"
 
       config {
-        image = "hashicorp/nomad-autoscaler:0.3.0"
+        image = "hashicorp/nomad-autoscaler:0.3.1"
         command = "nomad-autoscaler"
         ports = ["autoscaler"]
         args = [

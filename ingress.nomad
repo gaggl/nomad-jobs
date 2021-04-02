@@ -20,7 +20,10 @@ job "ingress" {
     service {
       name = "traefik"
       port = "traefik-ui"
-      tags = ["traefik.enable=true"]
+      tags = [
+        "traefik.enable=true",
+        "traefik.http.routers.traefik.rule=Host(`ingress.gaggl.vagrant`)"
+      ]
       check {
         type = "http"
         path = "/ping"
@@ -33,7 +36,7 @@ job "ingress" {
       driver = "docker"
 
       config {
-        image = "traefik:v2.4.7"
+        image = "traefik:v2.4.8"
 
         args = [
           "--config.file=/etc/traefik/traefik.yml",

@@ -15,7 +15,10 @@ job "metrics" {
     service {
       name = "prometheus"
       port = "prometheus_ui"
-      tags = ["traefik.enable=true"]
+      tags = [
+        "traefik.enable=true",
+        "traefik.http.routers.prometheus.rule=Host(`metrics.gaggl.vagrant`)"
+      ]
       check {
         type     = "http"
         path     = "/-/healthy"
@@ -28,7 +31,7 @@ job "metrics" {
       driver = "docker"
 
       config {
-        image = "prom/prometheus:v2.25.0"
+        image = "prom/prometheus:v2.26.0"
 
         args = [
           "--config.file=/etc/prometheus/config/prometheus.yml",
