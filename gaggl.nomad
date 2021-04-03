@@ -1,5 +1,5 @@
 job "gaggl" {
-  datacenters = ["dc1","dc2"]
+  datacenters = ["mgmt"]
   namespace = "gaggl"
   type = "service"
 
