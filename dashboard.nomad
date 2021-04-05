@@ -3,7 +3,7 @@ job "dashboard" {
   namespace = "shared"
   type = "service"
 
-  group "alertmanager" {
+  group "alerts" {
     count = 1
 
     update {
@@ -82,7 +82,7 @@ EOH
     }
   }
 
-  group "grafana" {
+  group "observability" {
     count = 1
 
     ephemeral_disk {
@@ -179,7 +179,7 @@ EOH
     }
   }
 
-  group "mailhog" {
+  group "mail" {
     count = 1
 
     network {
@@ -227,6 +227,56 @@ EOH
       resources {
         cpu    = 100
         memory = 128
+      }
+    }
+  }
+
+  group "status" {
+
+    network {
+      port "statping" {
+        to = 8080
+      }
+    }
+
+    service {
+      name = "statping"
+      port = "statping"
+      tags = [
+        "traefik.enable=true",
+        "traefik.http.routers.mailhog.rule=Host(`status.gaggl.vagrant`)"
+      ]
+      check {
+        type     = "http"
+        path     = "/health"
+        interval = "10s"
+        timeout  = "2s"
+      }
+    }
+
+    task "statping" {
+      driver = "docker"
+
+      config {
+        image = "statping/statping:v0.90.74"
+        ports = [
+          "statping"]
+      }
+
+      env {
+        DB_CONN = "sqlite"
+        NAME  = "status.gaggl.vagrant"
+        DESCRIPTION = "Status page for your gaggl project"
+        DOMAIN = "status.gaggl.vagrant"
+        ADMIN_USER = "admin"
+        ADMIN_PASSWORD = "secret"
+        API_SECRET = "supersecret"
+        SAMPLE_DATA= false
+      }
+
+      resources {
+        cpu = 100
+        memory = 16
       }
     }
   }

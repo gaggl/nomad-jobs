@@ -35,10 +35,7 @@ job "traces" {
     service {
       name = "tempo-ui"
       port = "tempo-ui"
-      tags = [
-        "traefik.enable=true",
-        "traefik.http.routers.tempo.rule=Host(`traces.gaggl.vagrant`)"
-      ]
+
       check {
         type     = "http"
         path     = "/"

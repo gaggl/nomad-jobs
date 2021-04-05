@@ -23,10 +23,7 @@ job "logs" {
     service {
       name = "loki"
       port = "loki"
-      tags = [
-        "traefik.enable=true",
-        "traefik.http.routers.loki.rule=Host(`logs.gaggl.vagrant`)"
-      ]
+
       check {
         type     = "http"
         path     = "/ready"
