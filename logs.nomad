@@ -58,7 +58,7 @@ job "logs" {
       driver = "docker"
 
       config {
-        image = "grafana/loki:2.1.0"
+        image = "grafana/loki:2.2.1"
 
         args = [
           "--config.file=/etc/loki/config/loki.yml",
@@ -154,7 +154,7 @@ EOH
       driver = "docker"
 
       config {
-        image = "grafana/promtail:2.1.0"
+        image = "grafana/promtail:2.2.1"
 
         args = [
           "--config.file=/etc/promtail/config.yml",

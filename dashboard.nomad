@@ -111,7 +111,7 @@ EOH
       driver = "docker"
 
       config {
-        image = "grafana/grafana:7.5.0"
+        image = "grafana/grafana:7.5.3"
         ports = ["grafana_ui"]
         volumes = [
           "local/datasources:/etc/grafana/provisioning/datasources",
