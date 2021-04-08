@@ -43,7 +43,7 @@ job "scaling" {
       driver = "docker"
 
       config {
-        image = "hashicorp/nomad-autoscaler:0.3.1"
+        image = "hashicorp/nomad-autoscaler:0.3.2"
         command = "nomad-autoscaler"
         ports = ["autoscaler"]
         args = [
@@ -98,7 +98,7 @@ telemetry {
       }
 
       config {
-        image = "grafana/promtail:2.1.0"
+        image = "grafana/promtail:2.2.1"
         ports = ["promtail"]
         args = [
           "-config.file",
