@@ -58,7 +58,7 @@ job "traces" {
       driver = "docker"
 
       config {
-        image = "grafana/tempo:0.6.0"
+        image = "grafana/tempo:0.7.0"
 
         args = [
           "--config.file=/etc/tempo/config/tempo.yml",
@@ -113,37 +113,6 @@ EOH
         change_mode   = "signal"
         change_signal = "SIGHUP"
         destination   = "local/config/tempo.yml"
-      }
-
-      resources {
-        cpu    = 100
-        memory = 256
-      }
-    }
-    task "tempo-query" {
-      driver = "docker"
-
-      config {
-        image = "grafana/tempo-query:0.6.0"
-
-        args = [
-          "--grpc-storage-plugin.configuration-file=/etc/tempo/config/tempo-query.yml",
-        ]
-        ports = ["tempo-ui"]
-        volumes = [
-          "local/config:/etc/tempo/config",
-        ]
-      }
-
-      template {
-        data = <<EOH
----
-backend: "{{ range $i, $s := service "tempo" }}{{ if eq $i 0 }}{{.Address}}:{{.Port}}{{end}}{{end}}"
-EOH
-
-        change_mode   = "signal"
-        change_signal = "SIGHUP"
-        destination   = "local/config/tempo-query.yml"
       }
 
       resources {

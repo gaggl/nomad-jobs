@@ -1,7 +1,7 @@
 job "ingress" {
-  datacenters = ["mgmt"]
+  datacenters = ["mgmt","dc1","dc2"]
   namespace = "mgmt"
-  type = "service"
+  type = "system"
 
   group "traefik" {
     count = 1

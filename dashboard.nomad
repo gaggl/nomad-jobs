@@ -111,7 +111,7 @@ EOH
       driver = "docker"
 
       config {
-        image = "grafana/grafana:7.5.3"
+        image = "grafana/grafana:7.5.4"
         ports = ["grafana_ui"]
         volumes = [
           "local/datasources:/etc/grafana/provisioning/datasources",
@@ -244,7 +244,7 @@ EOH
       port = "statping"
       tags = [
         "traefik.enable=true",
-        "traefik.http.routers.mailhog.rule=Host(`status.gaggl.vagrant`)"
+        "traefik.http.routers.statping.rule=Host(`status.gaggl.vagrant`)"
       ]
       check {
         type     = "http"
