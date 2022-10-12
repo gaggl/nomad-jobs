@@ -58,7 +58,7 @@ job "logs" {
       driver = "docker"
 
       config {
-        image = "grafana/loki:2.2.1"
+        image = "grafana/loki:2.6.1"
 
         args = [
           "--config.file=/etc/loki/config/loki.yml",
@@ -91,7 +91,8 @@ ingester:
   chunk_target_size: 1048576  # Loki will attempt to build chunks up to 1.5MB, flushing first if chunk_idle_period or max_chunk_age is reached first
   chunk_retain_period: 30s    # Must be greater than index read cache TTL if using an index cache (Default index read cache TTL is 5m)
   max_transfer_retries: 0     # Chunk transfers disabled
-
+  wal:
+    dir: /loki/wal
 schema_config:
   configs:
     - from: 2020-10-24
@@ -130,8 +131,8 @@ ruler:
   storage:
     type: local
     local:
-      directory: /tmp/loki/rules
-  rule_path: /tmp/loki/rules-temp
+      directory: /etc/loki/rules
+  rule_path: /loki/rules
   alertmanager_url: http://{{ range $i, $s := service "alertmanager" }}{{ if eq $i 0 }}{{.Address}}:{{.Port}}{{end}}{{end}}
   ring:
     kvstore:
@@ -154,7 +155,7 @@ EOH
       driver = "docker"
 
       config {
-        image = "grafana/promtail:2.2.1"
+        image = "grafana/promtail:2.6.1"
 
         args = [
           "--config.file=/etc/promtail/config.yml",

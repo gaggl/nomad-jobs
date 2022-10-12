@@ -36,7 +36,7 @@ job "ingress" {
       driver = "docker"
 
       config {
-        image = "traefik:v2.4.8"
+        image = "traefik:v2.8.7"
 
         args = [
           "--config.file=/etc/traefik/traefik.yml",

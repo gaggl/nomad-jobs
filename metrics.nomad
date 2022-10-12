@@ -31,7 +31,7 @@ job "metrics" {
       driver = "docker"
 
       config {
-        image = "prom/prometheus:v2.26.0"
+        image = "prom/prometheus:v2.38.0"
 
         args = [
           "--config.file=/etc/prometheus/config/prometheus.yml",

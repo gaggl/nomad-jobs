@@ -58,7 +58,7 @@ job "traces" {
       driver = "docker"
 
       config {
-        image = "grafana/tempo:0.7.0"
+        image = "grafana/tempo:1.5.0"
 
         args = [
           "--config.file=/etc/tempo/config/tempo.yml",
