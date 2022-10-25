@@ -35,7 +35,7 @@ job "dashboard" {
       driver = "docker"
 
       config {
-        image = "prom/alertmanager:v0.21.0"
+        image = "prom/alertmanager:v0.24.0"
 
         ports = ["alertmanager_ui"]
         volumes = [
@@ -111,7 +111,7 @@ EOH
       driver = "docker"
 
       config {
-        image = "grafana/grafana:7.5.3"
+        image = "grafana/grafana:9.2.0"
         ports = ["grafana_ui"]
         volumes = [
           "local/datasources:/etc/grafana/provisioning/datasources",
@@ -226,7 +226,7 @@ EOH
 
       resources {
         cpu    = 100
-        memory = 128
+        memory = 64
       }
     }
   }
@@ -244,7 +244,7 @@ EOH
       port = "statping"
       tags = [
         "traefik.enable=true",
-        "traefik.http.routers.mailhog.rule=Host(`status.gaggl.vagrant`)"
+        "traefik.http.routers.statping.rule=Host(`status.gaggl.vagrant`)"
       ]
       check {
         type     = "http"
@@ -258,7 +258,7 @@ EOH
       driver = "docker"
 
       config {
-        image = "statping/statping:v0.90.74"
+        image = "adamboutcher/statping-ng:v0.90.78"
         ports = [
           "statping"]
       }
@@ -275,8 +275,8 @@ EOH
       }
 
       resources {
-        cpu = 100
-        memory = 16
+        cpu    = 100
+        memory = 64
       }
     }
   }

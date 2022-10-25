@@ -1,7 +1,7 @@
 job "ingress" {
-  datacenters = ["mgmt"]
+  datacenters = ["mgmt","dc1","dc2"]
   namespace = "mgmt"
-  type = "service"
+  type = "system"
 
   group "traefik" {
     count = 1
@@ -36,7 +36,7 @@ job "ingress" {
       driver = "docker"
 
       config {
-        image = "traefik:v2.4.8"
+        image = "traefik:v2.8.7"
 
         args = [
           "--config.file=/etc/traefik/traefik.yml",
